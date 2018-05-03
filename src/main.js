@@ -27,8 +27,7 @@ router.beforeEach((to, from, next) => {
   if (store.getters.token) { // 判断是否有token
     if (to.path === '/login') {
       next({ path: '/' });
-    } else {
-      console.log(store.getters)
+    } else {   
       if (store.getters.addRouters.length===0) { // 判断当前用户是否已拉取完user_info信息
         store.dispatch('GetUserInfo').then(res => { // 拉取info
           // store.dispatch('GenerateRoutes', { menus }).then(() => { // 生成可访问的路由表
