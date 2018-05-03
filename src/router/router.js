@@ -11,6 +11,25 @@ export const loginRouter = {
   component: () => import('@/views/login')
 };
 import Layout from '../views/layout/Layout'
+
+export const mainRoute={
+ 
+    path: '/index',
+    icon: 'el-icon-menu',
+    name: 'index',
+    component: Layout,
+    title: '首页',
+    children: [
+      {
+        path: 'index',
+        name: 'Form',
+        title: '首页',
+        icon:'el-icon-menu',
+        component: () => import('@/components/HelloWorld')
+      }
+    ]
+
+}
 // export const page404 = {
 //   path: '/*',
 //   name: 'error-404',
@@ -54,20 +73,18 @@ import Layout from '../views/layout/Layout'
 
 // 作为Main组件的子页面展示并且在左侧菜单显示的路由写在appRouter里
 export const appRouter = [
+
   {
-    path: '/',
-    icon: 'grid',
+    path: '/mm',
+    icon: 'el-icon-menu',
     name: 'dashboard',
     component: Layout,
     title: '面板',
     children: [
-      {
-        path: 'index',
-        name: 'Form',
-        title: '面板-11',
-        icon:'grid',
-        component: () => import('@/components/HelloWorld')
-      }
+          {  icon:'el-icon-menu',path: 'home', title: '首页', name: 'file.admin', component: () => import('@/components/HelloWorld') },
+          {  icon:'el-icon-menu',path: 'ownspace', title: '个人中心', name: 'ownspace_index', component: () => import('@/components/HelloWorld') },
+          {  icon:'el-icon-menu',path: 'add-article', title: '创建文章', name: 'add_article', component: () => import('@/components/HelloWorld') },
+          {  icon:'el-icon-menu',path: 'preview', title: '文章预览', name: 'preview_article', component: () => import('@/components/HelloWorld') },
     ]
 
 
@@ -76,9 +93,10 @@ export const appRouter = [
 ];
 export const routers = [
   loginRouter,
+  mainRoute
   // preview,
   // otherRouter,
-  ...appRouter,
+  // ...appRouter,
   // page500,
   // page403,
   // page404

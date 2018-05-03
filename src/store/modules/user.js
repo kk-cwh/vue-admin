@@ -1,14 +1,15 @@
 
 import { getToken, setToken, removeToken } from '@/utils/token'
 import http from '@/utils/http.js';
-
+import { routers, appRouter } from '../../router/router';
 const user = {
   state: {
     token: getToken(),
     name: '',
     avatar: '',
     roles: [],
-    showMenu:{}
+    showMenu:null,
+    addRouters: []
   },
 
   mutations: {
@@ -26,6 +27,11 @@ const user = {
     },
     SET_SHOWMENU: (state, showMenu) => {
       state.showMenu = showMenu
+    },
+    SET_ROUTERS: (state, routes) => {
+      state.addRouters = routes;
+      console.log(state.addRouters,12313)
+      state.routers = routers.concat(routes);
     }
   },
 
@@ -77,6 +83,22 @@ const user = {
              let  user = data.user;
             commit('SET_AVATAR',"https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=3448484253,3685836170&fm=27&gp=0.jpg");
             commit('SET_NAME', user.name);
+
+            const accessedRouters = appRouter.filter(v => {
+              if(v.children && v.children.length>0){
+                v.children = v.children.filter(child => {
+                  return menus.hasOwnProperty(child.name);
+                });
+                if(v.children.length){
+                  return true;
+                }
+              }
+                return false 
+            });
+            console.log(accessedRouters)
+            commit('SET_ROUTERS', accessedRouters);
+
+
             resolve()
           }
         }).catch(error => {
@@ -125,6 +147,24 @@ const user = {
     //     resolve()
     //   })
     // }
+    GenerateRoutes({ commit }, data) {
+      return new Promise(resolve => {
+        const { menus } = data;
+        const accessedRouters = appRouter.filter(v => {
+          if(v.children && v.children.length>0){
+            v.children = v.children.filter(child => {
+              return menus.hasOwnProperty(child.name);
+            });
+            if(v.children.length){
+              return true;
+            }
+          }
+            return false 
+        });
+        commit('SET_ROUTERS', accessedRouters);
+        resolve();
+      })
+    }
   }
 }
 

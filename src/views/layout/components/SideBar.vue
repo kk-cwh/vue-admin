@@ -1,48 +1,55 @@
 <template>
 
-    <el-menu
-      mode="vertical"
-      :show-timeout="200"
-      :default-active="$route.path"
-      :collapse="isCollapse"
-      background-color="#304156"
-      text-color="#bfcbd9"
-      active-text-color="#409EFF"
-    >
-      <el-submenu index="1">
-        <template slot="title">
-          <i class="el-icon-location"></i>
-          <span>导航一</span>
+  <el-menu mode="vertical" :show-timeout="200" :default-active="$route.path" :collapse="isCollapse" background-color="#304156" text-color="#bfcbd9" active-text-color="#409EFF">
+    <template v-for="item in routes" v-if="item.children">
+      <router-link v-if="(item.children.length === 1  && !item.children[0].children) " :to="item.path+'/'+item.children[0].path" :key="item.children[0].name">
+         <el-menu-item :index="item.path+'/'+item.children[0].path">
+          <i :class="item.icon"></i>
+          <span v-if="item.children[0].title" slot="title">{{item.children[0].title}}</span>
+         </el-menu-item>
+      </router-link>
+
+     <el-submenu v-else :index="item.path" :key="item.name">
+      <template slot="title">
+        <i :class="item.icon"></i>
+        <span  slot="title">{{item.title}}</span>
+      </template>
+
+       <template v-for="child in item.children" v-if="!child.hidden">
+          <router-link  :to="item.path+'/'+child.path" :key="child.name">
+            <el-menu-item :index="item.path+'/'+child.path">
+              <i v-if="child.icon" :class="child.icon"></i>
+              <span v-if="child.title" slot="title">{{child.title}}</span>
+            </el-menu-item>
+          </router-link>
         </template>
-          <el-menu-item index="1-1">选项1</el-menu-item>
-          <el-menu-item index="1-2">选项2</el-menu-item>
-          <el-menu-item index="1-3">选项3</el-menu-item>
+
+    </el-submenu>
 
 
-      </el-submenu>
-    </el-menu>
 
+    </template>
 
+    
+
+    
+  </el-menu>
 
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
-
-
+import { mapGetters } from "vuex";
 
 export default {
-  components: {  },
+  components: {},
   computed: {
-    ...mapGetters([
-      'sidebar'
-    ]),
+    ...mapGetters(["sidebar"]),
     routes() {
-      return this.$router.options.routes
+      return this.$router.options.routes;
     },
     isCollapse() {
-      return !this.sidebar.opened
+      return !this.sidebar.opened;
     }
   }
-}
+};
 </script>
