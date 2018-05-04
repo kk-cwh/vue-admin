@@ -30,7 +30,7 @@ export default {
   z-index: 1001;
   overflow: hidden;
 }
-#app .sidebar-container .horizontal-collapse-transition {
+/* #app .sidebar-container .horizontal-collapse-transition {
   transition: 0s width ease-in-out, 0s padding-left ease-in-out, 0s padding-right ease-in-out;
 }
 #app .sidebar-container a {
@@ -97,5 +97,5 @@ export default {
 #app .withoutAnimation .main-container,
 #app .withoutAnimation .sidebar-container {
   transition: none;
-}
+} */
 </style>

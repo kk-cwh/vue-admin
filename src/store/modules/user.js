@@ -94,10 +94,14 @@ const user = {
                 if(v.children.length){
                   return true;
                 }
-              }
+              }else if(v.hidden){
+                return true;
+              }else{
                 return false
+              }
+
             });
-            console.log(accessedRouters)
+            // console.log(accessedRouters)
             commit('SET_ROUTERS', accessedRouters);
             router.addRoutes(accessedRouters);
 

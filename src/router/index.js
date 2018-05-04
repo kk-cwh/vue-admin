@@ -33,18 +33,18 @@ export const router = new Router(RouterConfig);
 
 const whiteList = ['/login'];
 router.beforeEach((to, from, next) => {
-  console.log(to,'123');
-  console.log(store.getters.token)
+
+
   if (store.getters.token) { // 判断是否有token
-    console.log('hastoken')
+
     if (to.path === '/login') {
       next({ name: 'index' });
     } else {
-      console.log('hastoken 1')
+
       if (!store.getters.showMenu) { // 判断当前用户是否已拉取完user_info信息
 
         store.dispatch('GetUserInfo').then(res => { // 拉取info
-          console.log('GetUserInfo', store.getters.addRouters)
+          // console.log('GetUserInfo', store.getters.addRouters)
 
           // store.dispatch('GenerateRoutes', { menus }).then(() => { // 生成可访问的路由表
             // router.addRoutes(store.getters.addRouters) // 动态添加可访问路由表
