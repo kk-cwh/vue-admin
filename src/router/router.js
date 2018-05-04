@@ -13,8 +13,8 @@ export const loginRouter = {
 import Layout from '../views/layout/Layout'
 
 export const mainRoute={
- 
-    path: '/index',
+
+    path: '/',
     icon: 'el-icon-menu',
     name: 'index',
     component: Layout,
@@ -81,10 +81,10 @@ export const appRouter = [
     component: Layout,
     title: '面板',
     children: [
-          {  icon:'el-icon-menu',path: 'home', title: '首页', name: 'file.admin', component: () => import('@/components/HelloWorld') },
-          {  icon:'el-icon-menu',path: 'ownspace', title: '个人中心', name: 'ownspace_index', component: () => import('@/components/HelloWorld') },
-          {  icon:'el-icon-menu',path: 'add-article', title: '创建文章', name: 'add_article', component: () => import('@/components/HelloWorld') },
-          {  icon:'el-icon-menu',path: 'preview', title: '文章预览', name: 'preview_article', component: () => import('@/components/HelloWorld') },
+          {  icon:'el-icon-menu',path: 'home', title: '首页', name: 'articles', component: () => import('@/components/HelloWorld') },
+          {  icon:'el-icon-menu',path: 'ownspace', title: '个人中心', name: 'categories', component: () => import('@/components/HelloWorld') },
+          {  icon:'el-icon-menu',path: 'add-article', title: '创建文章', name: 'friendslinks', component: () => import('@/components/HelloWorld') },
+          {  icon:'el-icon-menu',path: 'preview', title: '文章预览', name: 'systems', component: () => import('@/components/HelloWorld') },
     ]
 
 

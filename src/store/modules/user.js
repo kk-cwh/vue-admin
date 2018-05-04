@@ -2,6 +2,7 @@
 import { getToken, setToken, removeToken } from '@/utils/token'
 import http from '@/utils/http.js';
 import { routers, appRouter } from '../../router/router';
+import { router } from '../../router/index';
 const user = {
   state: {
     token: getToken(),
@@ -9,7 +10,8 @@ const user = {
     avatar: '',
     roles: [],
     showMenu:null,
-    addRouters: []
+    addRouters: [],
+    routes:[]
   },
 
   mutations: {
@@ -30,8 +32,7 @@ const user = {
     },
     SET_ROUTERS: (state, routes) => {
       state.addRouters = routes;
-      console.log(state.addRouters,12313)
-      state.routers = routers.concat(routes);
+      state.routes = routers.concat(routes);
     }
   },
 
@@ -62,7 +63,8 @@ const user = {
           if (response.data) {
             const data = response.data;
             setToken(data.token_type + ' ' + data.access_token);
-            // Cookies.set('user', userInfo.username);
+            commit('SET_TOKEN',getToken());
+            console.log(data);
             resolve();
           }
         }).catch(error => {
@@ -93,11 +95,11 @@ const user = {
                   return true;
                 }
               }
-                return false 
+                return false
             });
             console.log(accessedRouters)
             commit('SET_ROUTERS', accessedRouters);
-
+            router.addRoutes(accessedRouters);
 
             resolve()
           }
@@ -125,7 +127,7 @@ const user = {
     //   })
     // },
 
-    // // 登出
+    // 登出
     // LogOut({ commit, state }) {
     //   return new Promise((resolve, reject) => {
     //     logout(state.token).then(() => {
@@ -159,7 +161,7 @@ const user = {
               return true;
             }
           }
-            return false 
+            return false
         });
         commit('SET_ROUTERS', accessedRouters);
         resolve();

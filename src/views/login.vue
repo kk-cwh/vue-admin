@@ -73,12 +73,7 @@ export default {
           this.loading = true
           this.$store.dispatch('Login', this.loginForm).then(() => {
             this.loading = false
-            this.$store.dispatch('GetUserInfo').then(() => {
-              this.$router.push({ name: 'index' })
-            }).catch((err) => {
-              console.log(err);
-            })
-
+              this.$router.push({ name: 'Form' })
           }).catch((err) => {
             console.log(err);
 

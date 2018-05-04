@@ -30,9 +30,9 @@
 
     </template>
 
-    
 
-    
+
+
   </el-menu>
 
 </template>
@@ -45,7 +45,8 @@ export default {
   computed: {
     ...mapGetters(["sidebar"]),
     routes() {
-      return this.$router.options.routes;
+      console.log(this.$router.options.routes,'option.routes');
+      return this.$store.getters.routes;
     },
     isCollapse() {
       return !this.sidebar.opened;
